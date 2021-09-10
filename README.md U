@@ -1,0 +1,30 @@
+# 발견 문제점
+## 1. '조회'  /board/view.do?uid= 에서 에러 발생
+
+>**원인** : updateOk.jsp 에서 url에 사용하기위해 가져올 uid parameter를 잘못 기재
+
+```java
+//수정
+${uid} ==> ${param.uid}
+
+```
+## 2. '조회' /board/view.do 에서 에러 발생
+
+>**원인** : WriteDAO.xml에서 `view.do` 구현중 DTO의 패키지중 domain 를 누락해서 기재
+
+```jsp
+//수정
+resultType="com.lec.spring.WriteDTO" ==> resultType="com.lec.spring.domain.WriteDTO"
+
+```
+## 3. '삭제' /board/deleteOk.do 에서 에러 발생
+
+>**원인** :WriteDAO.xml에서 
+`글삭제` 부분 구현중 DB uid명을 잘못 기재
+
+```jsp
+//수정
+WHERE uid = #{uid} ==>
+WHERE wr_uid = #{uid}
+
+```
